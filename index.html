@@ -225,8 +225,19 @@ a{color:inherit}
 .mbox input[readonly]{background:var(--soft);color:#555}
 .mbox textarea{resize:vertical;line-height:1.55}
 .macts{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.4rem}.macts .dl{margin-top:0}
+button.dl{border:0;cursor:pointer;font-family:inherit}button.dl.alt{border:1px solid var(--ink)}
+.mpick{position:fixed;inset:0;z-index:80;background:rgba(15,6,4,.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.mpick.open{opacity:1;pointer-events:auto}
+.pbox{position:relative;width:min(520px,92vw);background:#fff;padding:clamp(1.5rem,3.5vw,2.3rem);transform:translateY(12px) scale(.98);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.mpick.open .pbox{transform:none}
+.pbox h3{font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:1.5rem;margin:.5rem 0 .3rem}.pbox .ct{color:var(--red)}.psub{font-size:.82rem;color:var(--grey);margin:0 0 1.3rem;line-height:1.5}
+.mopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem}
+.mopts a,.mopts button{font-family:inherit;text-align:left;display:flex;flex-direction:column;gap:.25rem;padding:.85rem 1rem;border:1px solid #d9d3cf;background:#fff;color:var(--ink);text-decoration:none;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+.mopts b{font-weight:500;font-size:.8rem;letter-spacing:.04em}.mopts i{font-style:normal;font-size:.68rem;color:#8a817c}
+.mopts a:hover,.mopts a:focus-visible,.mopts button:hover,.mopts button:focus-visible{border-color:var(--red);background:#fbf7f5;transform:translateY(-1px)}
 .mnote{font-size:.72rem;color:var(--grey);margin-top:.9rem}
-@media (max-width:560px){.mbox input,.mbox textarea{font-size:16px}.mf{grid-template-columns:1fr}.mov{align-items:flex-end}.mbox{width:100vw}.bar .cta{padding:.45rem .6rem;letter-spacing:.18em}.bar .ed{display:none}}
+.mpick .x{position:absolute;top:.8rem;right:.8rem}
+@media (max-width:560px){.mpick{align-items:flex-end}.pbox{width:100vw}.mbox input,.mbox textarea{font-size:16px}.mf{grid-template-columns:1fr}.mov{align-items:flex-end}.mbox{width:100vw}.bar .cta{padding:.45rem .6rem;letter-spacing:.18em}.bar .ed{display:none}}
 
 /* ---------- Animations (26 Nov 2026) ---------- */
 @keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
@@ -284,6 +295,48 @@ a{color:inherit}
 .cta:hover::after,.dl:hover::after{transform:translateX(120%)}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .8s,transform .8s}
 .rv.in{opacity:1;transform:none}
+
+/* heart on cards */
+.card .hrt{position:absolute;right:.6rem;top:.6rem;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;border:0;cursor:pointer;opacity:0;transform:scale(.85);transition:opacity .25s,transform .25s}
+.card:hover .hrt,.card .hrt.on,.card .hrt:focus-visible{opacity:1;transform:none}
+@media (hover:none){.card .hrt{opacity:1;transform:none}}
+.hrt svg,.pa svg,.selfab svg{width:17px;height:17px;fill:none;stroke:var(--ink);stroke-width:1.6;transition:fill .2s,stroke .2s}
+.hrt.on svg,.pa.on svg{fill:var(--red);stroke:var(--red)}
+.hrt.pop svg,.pa.pop svg{animation:hpop .45s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes hpop{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+/* piece panel actions */
+.pacts{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.2rem;margin-top:.9rem}.pacts .enq{margin-top:0}
+.pa{display:inline-flex;align-items:center;gap:.4rem;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);background:none;border:0;cursor:pointer;padding:.15rem 0;font-family:inherit}
+.pa:hover{color:var(--red)}.pa:hover svg{stroke:var(--red)}#dshare svg{stroke-linecap:round;stroke-linejoin:round}
+/* floating selection button */
+.selfab{position:fixed;right:clamp(1rem,3vw,2rem);bottom:clamp(1rem,3vw,2rem);z-index:50;display:flex;align-items:center;gap:.6rem;background:var(--ink);color:#fff;border:0;cursor:pointer;padding:.85rem 1.1rem .85rem 1rem;font-family:inherit;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.18);transform:translateY(140%);opacity:0;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .3s,background .2s}
+.selfab.show{transform:none;opacity:1}.selfab:hover{background:var(--red)}
+.selfab svg{stroke:#fff;fill:#fff}.selfab b{background:#fff;color:var(--ink);min-width:1.5rem;height:1.5rem;border-radius:1rem;display:grid;place-items:center;font-weight:500;letter-spacing:0;font-size:.7rem;padding:0 .35rem}
+.selfab.bump b{animation:hpop .45s cubic-bezier(.2,.9,.3,1.4)}
+/* selection pop-up */
+.sov{z-index:65}.sbox{position:relative;width:min(560px,94vw);max-height:88vh;overflow-y:auto;background:#fff;padding:clamp(1.5rem,3.5vw,2.4rem);transform:translateY(14px);transition:transform .35s}
+.sov.open .sbox{transform:none}.sbox h3,.xbox h3{font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:1.5rem;margin:.5rem 0 .3rem}.sbox .ct,.xbox .ct,.nudge .ct{color:var(--red)}
+.slist{list-style:none;margin:0 0 1.3rem;padding:0;border-top:1px solid var(--line)}
+.slist li{display:grid;grid-template-columns:56px 1fr auto;gap:1rem;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--line);animation:up .4s both}
+.slist img{width:56px;height:56px;object-fit:cover;background:#f6f3f1}
+.slist b{display:block;font-weight:400;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}.slist span{font-size:.78rem;color:var(--grey)}
+.slist button{background:none;border:0;font-size:1.2rem;cursor:pointer;color:var(--grey);width:32px;height:32px}.slist button:hover{color:var(--red)}
+.sbox .dl[disabled]{opacity:.4;pointer-events:none}
+/* nudge */
+.nudge{position:fixed;left:clamp(1rem,3vw,2rem);bottom:clamp(1rem,3vw,2rem);z-index:55;width:min(340px,calc(100vw - 2rem));background:#fff;padding:1.2rem 1.3rem 1.1rem;box-shadow:0 14px 40px rgba(0,0,0,.16);border-left:3px solid var(--red);transform:translateY(20px);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s}
+.nudge.show{transform:none;opacity:1;pointer-events:auto}
+.nudge p{font-size:.84rem;line-height:1.5;margin:.45rem 0 .9rem;color:var(--ink)}
+.nudge .nb{display:flex;gap:1.1rem;align-items:center;flex-wrap:wrap}
+.nudge .nb button,.nudge .nb a{font-family:inherit;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;background:none;border:0;padding:0 0 .15rem;cursor:pointer;color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor}
+.nudge .nb button{color:var(--red)}
+.nudge .nx{position:absolute;top:.35rem;right:.5rem;background:none;border:0;font-size:1.1rem;cursor:pointer;color:var(--grey)}
+/* before you go */
+.xov{z-index:75}.xbox{position:relative;width:min(520px,92vw);background:#fff;padding:clamp(1.8rem,4vw,2.8rem);text-align:center;transform:scale(.96);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.xov.open .xbox{transform:none}.xbox .xlogo{height:46px;margin:0 auto .6rem;display:block}.xbox .xa{flex-direction:column;align-items:center;margin-top:1.4rem}.xbox .xa .dl{min-width:290px;justify-content:center}
+/* toast */
+.toast{position:fixed;left:50%;bottom:1.4rem;z-index:90;transform:translate(-50%,20px);background:var(--ink);color:#fff;font-size:.74rem;padding:.7rem 1.1rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .35s;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){.sov,.xov{align-items:flex-end}.sbox,.xbox{width:100vw}.selfab span{display:none}.selfab{padding:.8rem .9rem}.nudge{bottom:5rem}.toast{bottom:5.4rem}}
 </style>
 </head>
 <body>
@@ -391,10 +444,60 @@ a{color:inherit}
     <label class="full"><span>To</span><input value="jordie@sallyskoufis.com" readonly></label>
     <label class="full"><span>Subject</span><input id="fsub"></label>
     <label class="full"><span>Message</span><textarea id="fbody" rows="12"></textarea></label>
-    <div class="macts"><a class="dl" id="msend" href="#">Open in my email app <span aria-hidden="true">→</span></a><button class="dl alt" id="mcopy">Copy email</button></div>
-    <p class="mnote" id="mnote">Opens a new email to Jordie with this message ready to send. You can edit it first.</p>
+    <div class="macts"><button class="dl" id="msend" type="button" aria-haspopup="dialog">Send email <span aria-hidden="true">→</span></button><button class="dl alt" id="mcopy" type="button">Copy email</button></div>
+    <p class="mnote" id="mnote">Choose Gmail, Outlook/Hotmail, Yahoo or your mail app next. Your message opens ready to send, and you can edit it first.</p>
   </div>
 </div>
+
+<div class="mpick" id="mpick" aria-hidden="true">
+  <div class="pbox" role="dialog" aria-modal="true" aria-labelledby="pt">
+    <button class="x" id="px" type="button" aria-label="Close">×</button>
+    <div class="k ct">Your message is ready</div>
+    <h3 id="pt">Send with</h3>
+    <p class="psub">Pick the email you use. A new email to Jordie opens with your message filled in.</p>
+    <div class="mopts">
+      <a id="mo-gmail" target="_blank" rel="noopener"><b>Gmail</b><i>Google account</i></a>
+      <a id="mo-live" target="_blank" rel="noopener"><b>Outlook / Hotmail</b><i>Outlook.com, Hotmail, Live</i></a>
+      <a id="mo-365" target="_blank" rel="noopener"><b>Outlook 365</b><i>Work or school account</i></a>
+      <a id="mo-yahoo" target="_blank" rel="noopener"><b>Yahoo Mail</b><i>Yahoo account</i></a>
+      <a id="mo-app"><b>Mail app</b><i>Apple Mail, Outlook desktop</i></a>
+      <button type="button" id="mo-copy"><b>Copy email</b><i>Paste into any email</i></button>
+    </div>
+  </div>
+</div>
+
+<button class="selfab" id="selfab" type="button" aria-label="Open my selection"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.5 8.2 3.4 4.8 6.7 4.6c2.1-.1 3.6 1.1 4.3 2.4.7-1.3 2.2-2.5 4.3-2.4 3.3.2 5.2 3.6 4 6.7-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg><span>My selection</span><b id="selnum">0</b></button>
+
+<div class="ov sov" id="sov" aria-hidden="true">
+  <div class="sbox" role="dialog" aria-modal="true" aria-labelledby="st">
+    <button class="x" id="sx" type="button" aria-label="Close">×</button>
+    <div class="k ct">Your shortlist</div>
+    <h3 id="st">My selection</h3>
+    <p class="msub" id="ssub"></p>
+    <ul class="slist" id="slist"></ul>
+    <div class="macts"><button class="dl" id="smail" type="button">Email Jordie about these <span aria-hidden="true">→</span></button><button class="dl alt" id="sclear" type="button">Clear all</button></div>
+  </div>
+</div>
+
+<div class="nudge" id="nudge" role="status" aria-live="polite">
+  <button class="nx" id="nx" type="button" aria-label="Dismiss">×</button>
+  <div class="k ct" id="nk">Like what you see?</div>
+  <p id="nt">Jordie can talk you through wholesale and marketplace options for XS.</p>
+  <div class="nb"><button type="button" id="nmail">Email Jordie →</button><a href="XS_by_SALLY_SKOUFIS_Range_Book_2026_USD.pdf" download id="npdf">Range book (PDF)</a></div>
+</div>
+
+<div class="ov xov" id="xov" aria-hidden="true">
+  <div class="xbox" role="dialog" aria-modal="true" aria-labelledby="xt">
+    <button class="x" id="xx" type="button" aria-label="Close">×</button>
+    <img class="xlogo" src="img/xs-logo-k.webp" alt="" onerror="this.remove()">
+    <div class="k ct">Before you go</div>
+    <h3 id="xt">Take XS with you</h3>
+    <p class="msub" id="xsub">Keep the 2026 Range Book, or leave Jordie a note and Jordie will be in touch.</p>
+    <div class="macts xa"><a class="dl" href="XS_by_SALLY_SKOUFIS_Range_Book_2026_USD.pdf" download id="xpdf">Download the range book <span aria-hidden="true">↓</span></a><button class="dl alt" id="xmail" type="button">Email Jordie</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <div class="ov" id="ov" aria-hidden="true">
   <div class="box" role="dialog" aria-modal="true" aria-labelledby="dname">
@@ -406,7 +509,7 @@ a{color:inherit}
       <div class="shot" id="dshot"></div>
       <div class="fins" id="dfins"></div>
       <div class="rr">Indicative RRP (USD) · Subject to change</div>
-      <button class="enq" id="denq">Enquire about this piece →</button>
+      <div class="pacts"><button class="enq" id="denq">Enquire about this piece →</button><button class="pa" id="dsave" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.5 8.2 3.4 4.8 6.7 4.6c2.1-.1 3.6 1.1 4.3 2.4.7-1.3 2.2-2.5 4.3-2.4 3.3.2 5.2 3.6 4 6.7-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg><span>Add to my selection</span></button><button class="pa" id="dshare" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v7h14v-7"/></svg><span>Share</span></button></div>
       <div class="nav"><button id="dprev">← Previous</button><span id="dpos"></span><button id="dnext">Next →</button></div>
     </div>
   </div>
@@ -422,6 +525,9 @@ const $=s=>document.querySelector(s);
 const money=v=>SYM+v.toLocaleString('en-US');
 let cat='all',fin='gold',cur=0;
 const cardFin=P.map(()=>null); // per-card override
+// shortlist state (saved in this browser)
+let SEL=[];try{SEL=JSON.parse(localStorage.getItem('xsSel')||'[]').filter(k=>{const[i,f]=k.split(':');return P[+i]&&FINS.includes(f)})}catch(e){}
+const key=(i,f)=>i+':'+f,inSel=(i,f)=>SEL.includes(key(i,f));
 
 // chips
 $('#cats').innerHTML=CATS.map(([k,l])=>`<button class="chip${k==='all'?' on':''}" data-c="${k}">${l}<i>${k==='all'?P.length:P.filter(p=>p.cat===k).length}</i></button>`).join('');
@@ -429,7 +535,7 @@ $('#fins').insertAdjacentHTML('beforeend',FINS.map(f=>`<button class="fin${f===f
 
 // cards
 $('#grid').innerHTML=P.map((p,i)=>`<article class="card" data-i="${i}" tabindex="0" role="button" aria-label="${p.name} — open details">
-  <div class="pic"><span class="tag">Worn · ${FN[fin]}</span><img class="shot" alt="${p.name}" loading="lazy"><img class="worn" alt="" loading="lazy"></div>
+  <div class="pic"><span class="tag">Worn · ${FN[fin]}</span><button class="hrt" type="button" aria-label="Add ${p.name} to my selection"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.5 8.2 3.4 4.8 6.7 4.6c2.1-.1 3.6 1.1 4.3 2.4.7-1.3 2.2-2.5 4.3-2.4 3.3.2 5.2 3.6 4 6.7-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg></button><img class="shot" alt="${p.name}" loading="lazy"><img class="worn" alt="" loading="lazy"></div>
   <div class="meta"><div class="nm">${p.name}</div><div class="row"><span class="pr"></span><span class="dots">${FINS.map(f=>`<button data-f="${f}" aria-label="${FN[f]}"><span class="dot d-${f}"></span></button>`).join('')}</span></div></div>
 </article>`).join('');
 
@@ -448,7 +554,7 @@ function paintCard(i,quiet){
   // the model photo follows the selected finish (Shopify model shots); where none exists in that finish, the book photo stays and the tag names its finish
   const wi=el.querySelector('img.worn'),ms=p.model[f];el.querySelector('.tag').textContent='Worn · '+FN[f];
   if(ms&&wi.getAttribute('src')!==ms){wi.classList.add('ld');const nw=new Image();nw.onload=nw.onerror=()=>{wi.src=ms;requestAnimationFrame(()=>wi.classList.remove('ld'))};nw.src=ms}
-  el.classList.toggle('showworn',worn);el.classList.toggle('canflip',has&&hasM);
+  el.classList.toggle('showworn',worn);el.classList.toggle('canflip',has&&hasM);heartCard(i);
   if(quiet)return;
   const pe=el.querySelector('.pr');pe.classList.add('flip');setTimeout(()=>pe.classList.remove('flip'),180);
   pe.innerHTML=`${money(p[CUR][f])} <span style="color:#8a8a8a;font-size:.74rem">· ${FN[f]}</span>`;
@@ -456,7 +562,7 @@ function paintCard(i,quiet){
 }
 paintAll();
 let hoverGrid=false;$('#grid').addEventListener('mouseenter',()=>hoverGrid=true);$('#grid').addEventListener('mouseleave',()=>hoverGrid=false);
-setInterval(()=>{if(document.hidden||hoverGrid||$('#ov').classList.contains('open')||$('#mov').classList.contains('open'))return;
+setInterval(()=>{if(document.hidden||hoverGrid||['#ov','#mov','#sov','#xov'].some(s=>$(s).classList.contains('open')))return;
   const r=$('#grid').getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;phase^=1;P.forEach((_,i)=>paintCard(i,true))},4200);
 
 $('#cats').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cat=b.dataset.c;
@@ -465,6 +571,7 @@ $('#cats').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)
 $('#fins').addEventListener('click',e=>{const b=e.target.closest('.fin');if(!b)return;fin=b.dataset.f;cardFin.fill(null);
   document.querySelectorAll('.fin').forEach(c=>c.classList.toggle('on',c===b));paintAll();});
 $('#grid').addEventListener('click',e=>{const card=e.target.closest('.card');if(!card)return;const i=+card.dataset.i;
+  const h=e.target.closest('.hrt');if(h){e.stopPropagation();toggleSel(i,cardFin[i]||fin,h);return}
   const d=e.target.closest('.dots button');if(d){e.stopPropagation();cardFin[i]=d.dataset.f;paintCard(i);return}
   open(i,cardFin[i]||fin);});
 $('#grid').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const c=e.target.closest('.card');if(c){e.preventDefault();open(+c.dataset.i,cardFin[+c.dataset.i]||fin)}}});
@@ -487,6 +594,7 @@ function paint(){const p=P[cur];
   $('#dshot').innerHTML=!hasM?'':p.img[dfin]?`<img src="${p.img[dfin]}" alt="${p.name} in ${FN[dfin]}">`:`<p class="wnote">${FN[dfin]} is the finish worn in the photo.</p>`;
   $('#dfins').innerHTML=FINS.map(f=>`<button class="${f===dfin?'on':''}" data-f="${f}"><span class="fn"><span class="dot d-${f}"></span>${FN[f]}</span><span class="fp">${money(p[CUR][f])}</span></button>`).join('');
   $('#dpos').textContent=(cur+1)+' / '+P.length;
+  const sv=inSel(cur,dfin);$('#dsave').classList.toggle('on',sv);$('#dsave span').textContent=sv?'In my selection':'Add to my selection';$('#dshare span').textContent='Share';
   [P[(cur+1)%P.length],P[(cur+P.length-1)%P.length]].forEach(q=>[...Object.values(q.img),q.model[dfin]].forEach(s=>{const im=new Image();im.src=s}));
 }
 function step(d){const vis=P.map((p,i)=>i).filter(i=>cat==='all'||P[i].cat===cat);const k=vis.indexOf(cur);cur=vis[((k<0?0:k)+d+vis.length)%vis.length];
@@ -522,20 +630,85 @@ ${ti||'[Title]'}
 ${co||'[Company / Retailer / Marketplace Name]'}
 ${em||'[Email]'} | ${ph||'[Phone]'}`;
   link()}
-function link(){$('#msend').href='mailto:'+TO+'?subject='+encodeURIComponent($('#fsub').value)+'&body='+encodeURIComponent($('#fbody').value)}
+function link(){const e=encodeURIComponent,s=e($('#fsub').value),b=e($('#fbody').value),to=e(TO);
+  $('#mo-gmail').href='https://mail.google.com/mail/?view=cm&fs=1&to='+to+'&su='+s+'&body='+b;
+  $('#mo-live').href='https://outlook.live.com/mail/0/deeplink/compose?to='+to+'&subject='+s+'&body='+b;
+  $('#mo-365').href='https://outlook.office.com/mail/deeplink/compose?to='+to+'&subject='+s+'&body='+b;
+  $('#mo-yahoo').href='https://compose.mail.yahoo.com/?to='+to+'&subject='+s+'&body='+b;
+  $('#mo-app').href='mailto:'+TO+'?subject='+s+'&body='+b}
+function pick(open){$('#mpick').classList.toggle('open',open);$('#mpick').setAttribute('aria-hidden',!open);if(open)setTimeout(()=>$('#mo-gmail').focus(),60);else if(open===false&&document.activeElement&&$('#mpick').contains(document.activeElement))$('#msend').focus()}
+$('#msend').onclick=()=>{link();pick(true)};
+$('#px').onclick=()=>pick(false);$('#mpick').addEventListener('click',e=>{if(e.target.id==='mpick')pick(false)});
+document.querySelectorAll('.mopts a').forEach(a=>a.addEventListener('click',()=>{$('#mnote').textContent='Opened '+a.querySelector('b').textContent+'. If nothing opened, press Send email again and choose another option, or use Copy email.';setTimeout(()=>pick(false),250)}));
+$('#mo-copy').onclick=()=>{$('#mcopy').click();$('#mo-copy').querySelector('b').textContent='Copied';setTimeout(()=>{$('#mo-copy').querySelector('b').textContent='Copy email';pick(false)},1200)};
 function openMail(style){if(style){const f=$('#fs');const cur=f.value.split(',').map(x=>x.trim()).filter(Boolean);if(!cur.includes(style))cur.push(style);f.value=cur.join(', ')}
   mailFocus=document.activeElement;draft();$('#mov').classList.add('open');$('#mov').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>$('#fn').focus(),60)}
-function closeMail(){$('#mov').classList.remove('open');$('#mov').setAttribute('aria-hidden','true');if(!$('#ov').classList.contains('open'))document.body.style.overflow='';if(mailFocus)mailFocus.focus()}
+function closeMail(){pick(false);$('#mov').classList.remove('open');$('#mov').setAttribute('aria-hidden','true');if(!$('#ov').classList.contains('open'))document.body.style.overflow='';if(mailFocus)mailFocus.focus()}
 document.querySelectorAll('[data-mail]').forEach(b=>b.addEventListener('click',()=>openMail()));
 ['fn','ft','fc','fe','fp','fs'].forEach(id=>document.getElementById(id).addEventListener('input',draft));
 $('#fbody').addEventListener('input',()=>{bodyEdited=true;link()});$('#fsub').addEventListener('input',link);
 $('#mx').onclick=closeMail;$('#mov').addEventListener('click',e=>{if(e.target.id==='mov')closeMail()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#mov').classList.contains('open')){e.stopImmediatePropagation();closeMail()}},true);
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#mpick').classList.contains('open')){e.stopImmediatePropagation();pick(false)}else if($('#mov').classList.contains('open')){e.stopImmediatePropagation();closeMail()}},true);
 $('#denq').onclick=()=>openMail(P[cur].name);
 $('#mcopy').onclick=async()=>{const t='To: '+TO+'\nSubject: '+$('#fsub').value+'\n\n'+$('#fbody').value;
   try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove()}
   $('#mcopy').textContent='Copied';$('#mnote').textContent='Copied. Paste it into any email to '+TO+'.';setTimeout(()=>$('#mcopy').textContent='Copy email',2200)};
 
+
+// ---------- My selection (shortlist) ----------
+function saveSel(){try{localStorage.setItem('xsSel',JSON.stringify(SEL))}catch(e){}}
+function heartCard(i){const el=$('#grid').children[i];if(!el)return;const f=cardFin[i]||fin,on=inSel(i,f),h=el.querySelector('.hrt');h.classList.toggle('on',on);h.setAttribute('aria-label',(on?'Remove ':'Add ')+P[i].name+' ('+FN[f]+')'+(on?' from':' to')+' my selection')}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2400)}
+function renderSel(){const n=SEL.length;$('#selnum').textContent=n;$('#selfab').classList.toggle('show',n>0);
+  $('#ssub').textContent=n?n+(n===1?' piece':' pieces')+' saved. Send them to Jordie in one email.':'Tap the heart on any piece to save it here.';
+  $('#slist').innerHTML=SEL.map(k=>{const[i,f]=k.split(':'),p=P[+i];return `<li><img src="${p.img[f]||p.model[f]||p.life}" alt=""><div><b>${p.name}</b><span>${FN[f]} · ${money(p[CUR][f])}</span></div><button type="button" data-k="${k}" aria-label="Remove ${p.name} ${FN[f]}">×</button></li>`}).join('');
+  $('#smail').disabled=!n;$('#sclear').style.display=n?'':'none'}
+function toggleSel(i,f,src){const k=key(i,f),on=SEL.includes(k);SEL=on?SEL.filter(x=>x!==k):[...SEL,k];saveSel();renderSel();heartCard(i);
+  if($('#ov').classList.contains('open')&&cur===i)paint();
+  if(!on){const fab=$('#selfab');fab.classList.remove('bump');void fab.offsetWidth;fab.classList.add('bump');if(src){src.classList.remove('pop');void src.offsetWidth;src.classList.add('pop')}}
+  toast(on?'Removed from my selection':P[i].name+' · '+FN[f]+' added to my selection')}
+function openSel(){renderSel();$('#sov').classList.add('open');$('#sov').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('#sx').focus()}
+function closeSel(){$('#sov').classList.remove('open');$('#sov').setAttribute('aria-hidden','true');if(!$('#ov').classList.contains('open'))document.body.style.overflow=''}
+$('#selfab').onclick=openSel;$('#sx').onclick=closeSel;$('#sov').addEventListener('click',e=>{if(e.target.id==='sov')closeSel()});
+$('#slist').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;const[i,f]=b.dataset.k.split(':');toggleSel(+i,f)});
+$('#sclear').onclick=()=>{const was=SEL.map(k=>+k.split(':')[0]);SEL=[];saveSel();renderSel();was.forEach(heartCard);toast('Selection cleared')};
+$('#smail').onclick=()=>{const list=SEL.map(k=>{const[i,f]=k.split(':');return P[+i].name+' ('+FN[f]+')'}).join(', ');closeSel();$('#fs').value=list;openMail()};
+$('#dsave').onclick=()=>toggleSel(cur,dfin,$('#dsave'));
+renderSel();P.forEach((_,i)=>heartCard(i));
+
+// ---------- Share a piece: link opens straight to that piece and finish ----------
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+$('#dshare').onclick=async()=>{const p=P[cur],url=location.origin+location.pathname+'#piece='+slug(p.name)+'&finish='+dfin,title=p.name+' · '+FN[dfin]+' · XS by SALLY SKOUFIS™';
+  if(navigator.share&&matchMedia('(pointer:coarse)').matches){try{await navigator.share({title,url});return}catch(e){if(e.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(url)}catch(e){const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove()}
+  $('#dshare span').textContent='Link copied';toast('Link to '+p.name+' ('+FN[dfin]+') copied')};
+function fromHash(){const m=location.hash.match(/piece=([a-z0-9-]+)(?:&finish=(gold|silver|black))?/);if(!m)return;const i=P.findIndex(p=>slug(p.name)===m[1]);if(i<0)return;
+  $('#range').scrollIntoView();setTimeout(()=>open(i,m[2]||P[i].worn||'gold'),350)}
+addEventListener('hashchange',fromHash);fromHash();
+
+// ---------- Gentle nudge: once, after a few pieces have been opened ----------
+let opened=0,nudged=false;try{nudged=sessionStorage.getItem('xsNudge')==='1'}catch(e){}
+const anyOpen=()=>['#ov','#mov','#sov','#xov'].some(s=>$(s).classList.contains('open'));
+function nudge(){if(nudged)return;nudged=true;try{sessionStorage.setItem('xsNudge','1')}catch(e){}
+  const n=SEL.length;if(n){$('#nk').textContent='Nice picks';$('#nt').textContent='You have '+n+(n===1?' piece':' pieces')+' in your selection. Send them to Jordie in one email?';$('#nmail').textContent='Send my selection →'}
+  $('#nudge').classList.add('show');setTimeout(()=>$('#nudge').classList.remove('show'),20000)}
+const _open=open;open=function(i,f){_open(i,f);opened++};
+const _close=close;close=function(){_close();if(opened>=3&&!nudged)setTimeout(()=>{if(!anyOpen())nudge()},900)};
+$('#dx').onclick=close;
+$('#nx').onclick=()=>$('#nudge').classList.remove('show');
+$('#nmail').onclick=()=>{$('#nudge').classList.remove('show');SEL.length?$('#smail').click():openMail()};
+$('#npdf').addEventListener('click',()=>$('#nudge').classList.remove('show'));
+
+// ---------- Before you go: once, computer only, when the mouse leaves through the top ----------
+let exitShown=false;try{exitShown=sessionStorage.getItem('xsExit')==='1'}catch(e){}const t0=Date.now();
+function closeExit(){$('#xov').classList.remove('open');$('#xov').setAttribute('aria-hidden','true');document.body.style.overflow=''}
+function showExit(){if(exitShown||anyOpen())return;exitShown=true;try{sessionStorage.setItem('xsExit','1')}catch(e){}
+  const n=SEL.length;if(n){$('#xt').textContent='Send your selection?';$('#xsub').textContent='You saved '+n+(n===1?' piece':' pieces')+'. Send them to Jordie now, or keep the range book for later.';$('#xmail').textContent='Send my selection';$('#xmail').classList.remove('alt');$('#xpdf').classList.add('alt');$('#xmail').parentNode.prepend($('#xmail'))}
+  $('#nudge').classList.remove('show');$('#xov').classList.add('open');$('#xov').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('#xx').focus()}
+if(matchMedia('(pointer:fine)').matches)document.addEventListener('mouseout',e=>{if(!e.relatedTarget&&e.clientY<=0&&Date.now()-t0>20000)showExit()});
+$('#xx').onclick=closeExit;$('#xov').addEventListener('click',e=>{if(e.target.id==='xov')closeExit()});
+$('#xmail').onclick=()=>{closeExit();SEL.length?$('#smail').click():openMail()};$('#xpdf').addEventListener('click',()=>setTimeout(closeExit,300));
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#xov').classList.contains('open')){e.stopImmediatePropagation();closeExit()}else if($('#sov').classList.contains('open')&&!$('#mov').classList.contains('open')){e.stopImmediatePropagation();closeSel()}},true);
 
 // scroll progress, parallax, card waves, reveals
 const prog=$('#prog'),heroImg=$('.hero>img'),attImg=$('.att img'),att=$('.att');
