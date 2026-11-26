@@ -98,9 +98,14 @@ a{color:inherit}
 .card .pic img{position:absolute;inset:0;width:100%;height:100%;transition:opacity .45s}
 .card .pic img.shot{object-fit:contain;padding:10%}
 .card .pic img.worn{object-fit:cover;object-position:55% 30%;opacity:0}
-.card.showworn .pic img.worn,.card:hover .pic img.worn{opacity:1}
+.card.showworn .pic img.worn{opacity:1}
+/* hover shows the other side of a card: model shot <-> pack shot */
+.card.canflip:not(.showworn):hover .pic img.worn{opacity:1}
+.card.canflip.showworn:hover .pic img.worn{opacity:0}
+.card .pic img.worn{transition:opacity .9s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
 .card .tag{position:absolute;left:.7rem;top:.7rem;z-index:2;font-size:.55rem;letter-spacing:.24em;text-transform:uppercase;background:rgba(255,255,255,.92);padding:.3rem .5rem;opacity:0;transition:opacity .3s}
-.card:hover .tag,.card.showworn .tag{opacity:1}
+.card.showworn .tag,.card.canflip:not(.showworn):hover .tag{opacity:1}
+.card.canflip.showworn:hover .tag{opacity:0}
 .card .meta{padding:.9rem 1rem 1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
 .card .nm{font-family:var(--serif);font-size:1.18rem;line-height:1.15}
 .card .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
@@ -209,6 +214,7 @@ a{color:inherit}
 .mbox h3{font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:1.5rem;margin:.5rem 0 .3rem}
 .msub{font-size:.82rem;color:var(--grey);margin-bottom:1.3rem}.msub a{color:inherit}
 .mf{display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1rem;margin-bottom:.8rem}
+.mf .w2{grid-column:1/-1}
 .mbox label{display:flex;flex-direction:column;gap:.3rem}
 .mbox label.full{margin-bottom:.8rem}
 .mbox label span{font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--grey)}
@@ -374,13 +380,15 @@ a{color:inherit}
     <p class="msub">Jordie Smith · Head of Global Markets · <a href="tel:+61408347700">+61 408 347 700</a></p>
     <div class="mf">
       <label><span>Your name</span><input id="fn" autocomplete="name"></label>
-      <label><span>Company</span><input id="fc" autocomplete="organization"></label>
-      <label><span>Market / channel</span><input id="fm" placeholder="e.g. United States · marketplace"></label>
-      <label><span>Styles of interest</span><input id="fs" placeholder="e.g. XSculpt Huggie Earrings, XSolid Ear Cuff"></label>
+      <label><span>Title</span><input id="ft" autocomplete="organization-title"></label>
+      <label class="w2"><span>Company / retailer / marketplace</span><input id="fc" autocomplete="organization"></label>
+      <label><span>Email</span><input id="fe" type="email" autocomplete="email"></label>
+      <label><span>Phone</span><input id="fp" type="tel" autocomplete="tel"></label>
+      <label class="w2"><span>Styles of interest (optional)</span><input id="fs" placeholder="e.g. XSculpt Huggie Earrings, XSolid Ear Cuff"></label>
     </div>
     <label class="full"><span>To</span><input value="jordie@sallyskoufis.com" readonly></label>
     <label class="full"><span>Subject</span><input id="fsub"></label>
-    <label class="full"><span>Message</span><textarea id="fbody" rows="9"></textarea></label>
+    <label class="full"><span>Message</span><textarea id="fbody" rows="12"></textarea></label>
     <div class="macts"><a class="dl" id="msend" href="#">Open in my email app <span aria-hidden="true">→</span></a><button class="dl alt" id="mcopy">Copy email</button></div>
     <p class="mnote" id="mnote">Opens a new email to Jordie with this message ready to send. You can edit it first.</p>
   </div>
@@ -403,7 +411,7 @@ a{color:inherit}
 </div>
 
 <script>
-const P=[{"name":"XSolid Ear Cuff","cat":"cuffs","worn":"gold","img":{"gold":"img/xsolid-ear-cuff-worn.webp","black":"img/xsolid-ear-cuff-black.webp","silver":"img/xsolid-ear-cuff-silver.webp"},"shots":["black","silver"],"aud":{"gold":90,"silver":60,"black":60},"usd":{"gold":65,"silver":60,"black":60}},{"name":"XSculpt Ear Cuff","cat":"cuffs","worn":"silver","img":{"silver":"img/xsculpt-ear-cuff-worn.webp","black":"img/xsculpt-ear-cuff-black.webp","gold":"img/xsculpt-ear-cuff-gold.webp"},"shots":["black","gold"],"aud":{"gold":70,"silver":70,"black":70},"usd":{"gold":70,"silver":70,"black":70}},{"name":"XStyle Ear Cuff","cat":"cuffs","worn":"gold","img":{"gold":"img/xstyle-ear-cuff-worn.webp","black":"img/xstyle-ear-cuff-black.webp","silver":"img/xstyle-ear-cuff-silver.webp"},"shots":["black","silver"],"aud":{"gold":40,"silver":40,"black":40},"usd":{"gold":40,"silver":40,"black":40}},{"name":"XStyle Grande Ear Cuff","cat":"cuffs","worn":"black","img":{"black":"img/xstyle-grande-ear-cuff-worn.webp","silver":"img/xstyle-grande-ear-cuff-silver.webp","gold":"img/xstyle-grande-ear-cuff-gold.webp"},"shots":["silver","gold"],"aud":{"gold":35,"silver":35,"black":35},"usd":{"gold":26,"silver":26,"black":26}},{"name":"XSculpt Petite Huggie Earrings","cat":"huggies","worn":"gold","img":{"gold":"img/xsculpt-petite-huggie-earrings-worn.webp","black":"img/xsculpt-petite-huggie-earrings-black.webp","silver":"img/xsculpt-petite-huggie-earrings-silver.webp"},"shots":["black","silver"],"aud":{"gold":80,"silver":80,"black":80},"usd":{"gold":120,"silver":120,"black":120}},{"name":"XSculpt Huggie Earrings","cat":"huggies","worn":"silver","img":{"silver":"img/xsculpt-huggie-earrings-worn.webp","black":"img/xsculpt-huggie-earrings-black.webp","gold":"img/xsculpt-huggie-earrings-gold.webp"},"shots":["black","gold"],"aud":{"gold":100,"silver":100,"black":100},"usd":{"gold":135,"silver":135,"black":135}},{"name":"XSculpt Grande Huggie Earrings","cat":"huggies","worn":"gold","img":{"gold":"img/xsculpt-grande-huggie-earrings-worn.webp","black":"img/xsculpt-grande-huggie-earrings-black.webp","silver":"img/xsculpt-grande-huggie-earrings-silver.webp"},"shots":["black","silver"],"aud":{"gold":130,"silver":130,"black":180},"usd":{"gold":180,"silver":180,"black":180}},{"name":"XSolid Petite Earrings","cat":"earrings","worn":"silver","img":{"silver":"img/xsolid-petite-earrings-worn.webp","black":"img/xsolid-petite-earrings-black.webp","gold":"img/xsolid-petite-earrings-gold.webp"},"shots":["black","gold"],"aud":{"gold":100,"silver":100,"black":100},"usd":{"gold":120,"silver":120,"black":120}},{"name":"XSolid Earrings","cat":"earrings","worn":"gold","img":{"gold":"img/xsolid-earrings-worn.webp","black":"img/xsolid-earrings-black.webp","silver":"img/xsolid-earrings-silver.webp"},"shots":["black","silver"],"aud":{"gold":120,"silver":120,"black":120},"usd":{"gold":140,"silver":140,"black":140}},{"name":"XSolid Grande Earrings","cat":"earrings","worn":"black","img":{"black":"img/xsolid-grande-earrings-worn.webp","silver":"img/xsolid-grande-earrings-silver.webp","gold":"img/xsolid-grande-earrings-gold.webp"},"shots":["silver","gold"],"aud":{"gold":180,"silver":180,"black":180},"usd":{"gold":240,"silver":240,"black":240}},{"name":"XStyle Grande Earrings","cat":"earrings","worn":"gold","img":{"gold":"img/xstyle-grande-earrings-worn.webp","black":"img/xstyle-grande-earrings-black.webp","silver":"img/xstyle-grande-earrings-silver.webp"},"shots":["black","silver"],"aud":{"gold":200,"silver":95,"black":95},"usd":{"gold":240,"silver":95,"black":95}},{"name":"XStyle Earrings","cat":"earrings","worn":"silver","img":{"silver":"img/xstyle-earrings-worn.webp","black":"img/xstyle-earrings-black.webp","gold":"img/xstyle-earrings-gold.webp"},"shots":["black","gold"],"aud":{"gold":170,"silver":105,"black":105},"usd":{"gold":225,"silver":130,"black":130}},{"name":"XSavage Earrings","cat":"earrings","worn":"gold","img":{"gold":"img/xsavage-earrings-worn.webp","black":"img/xsavage-earrings-black.webp","silver":"img/xsavage-earrings-silver.webp"},"shots":["black","silver"],"aud":{"gold":180,"silver":180,"black":180},"usd":{"gold":200,"silver":200,"black":129}},{"name":"XSavage Grande Earrings","cat":"earrings","worn":"black","img":{"black":"img/xsavage-grande-earrings-worn.webp","silver":"img/xsavage-grande-earrings-silver.webp","gold":"img/xsavage-grande-earrings-gold.webp"},"shots":["silver","gold"],"aud":{"gold":220,"silver":220,"black":220},"usd":{"gold":240,"silver":240,"black":240}},{"name":"XSculpt Grande Ring","cat":"rings","worn":"gold","img":{"gold":"img/xsculpt-grande-ring-worn.webp","black":"img/xsculpt-grande-ring-black.webp","silver":"img/xsculpt-grande-ring-silver.webp"},"shots":["black","silver"],"aud":{"gold":90,"silver":90,"black":90},"usd":{"gold":65,"silver":80,"black":80}},{"name":"XSculpt Ring","cat":"rings","worn":"silver","img":{"silver":"img/xsculpt-ring-worn.webp","black":"img/xsculpt-ring-black.webp","gold":"img/xsculpt-ring-gold.webp"},"shots":["black","gold"],"aud":{"gold":80,"silver":80,"black":80},"usd":{"gold":58,"silver":80,"black":80}}];
+const P=[{"name":"XSolid Ear Cuff","cat":"cuffs","worn":"gold","img":{"black":"img/xsolid-ear-cuff-black.webp","silver":"img/xsolid-ear-cuff-silver.webp","gold":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSTYLE-GRANDE-EARCUFF-in-18k-gold.png?v=1758188237&crop=region&crop_left=624&crop_top=1799&crop_width=748&crop_height=748&width=760&height=760"},"shots":["black","silver"],"aud":{"gold":90,"silver":60,"black":60},"usd":{"gold":65,"silver":60,"black":60},"life":"img/xsolid-ear-cuff-worn.webp"},{"name":"XSculpt Ear Cuff","cat":"cuffs","worn":"silver","img":{"black":"img/xsculpt-ear-cuff-black.webp","gold":"img/xsculpt-ear-cuff-gold.webp","silver":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SS-XSenseEarCuff-Silver.png?v=1772675968&crop=region&crop_left=735&crop_top=1935&crop_width=566&crop_height=566&width=760&height=760"},"shots":["black","gold"],"aud":{"gold":70,"silver":70,"black":70},"usd":{"gold":70,"silver":70,"black":70},"life":"img/xsculpt-ear-cuff-worn.webp"},{"name":"XStyle Ear Cuff","cat":"cuffs","worn":"gold","img":{"black":"img/xstyle-ear-cuff-black.webp","silver":"img/xstyle-ear-cuff-silver.webp","gold":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSTYLE-PETITE-EARCUFF-in-18K-Gold-Vermeil-01.png?v=1750938688&crop=region&crop_left=732&crop_top=1962&crop_width=546&crop_height=546&width=760&height=760"},"shots":["black","silver"],"aud":{"gold":40,"silver":40,"black":40},"usd":{"gold":40,"silver":40,"black":40},"life":"img/xstyle-ear-cuff-worn.webp"},{"name":"XStyle Grande Ear Cuff","cat":"cuffs","worn":"black","img":{"silver":"img/xstyle-grande-ear-cuff-silver.webp","gold":"img/xstyle-grande-ear-cuff-gold.webp","black":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSTYLE-PETITE-EARCUFF-in-Blkpng.png?v=1772443039&crop=region&crop_left=550&crop_top=1728&crop_width=910&crop_height=910&width=760&height=760"},"shots":["silver","gold"],"aud":{"gold":35,"silver":35,"black":35},"usd":{"gold":26,"silver":26,"black":26},"life":"img/xstyle-grande-ear-cuff-worn.webp"},{"name":"XSculpt Petite Huggie Earrings","cat":"huggies","worn":"gold","img":{"black":"img/xsculpt-petite-huggie-earrings-black.webp","silver":"img/xsculpt-petite-huggie-earrings-silver.webp","gold":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSculpt-Huggie-Petite-Earrings-in-18K-Gold-Vermeil-01.png?v=1751026452&crop=region&crop_left=525&crop_top=1732&crop_width=956&crop_height=956&width=760&height=760"},"shots":["black","silver"],"aud":{"gold":80,"silver":80,"black":80},"usd":{"gold":120,"silver":120,"black":120},"life":"img/xsculpt-petite-huggie-earrings-worn.webp"},{"name":"XSculpt Huggie Earrings","cat":"huggies","worn":"silver","img":{"black":"img/xsculpt-huggie-earrings-black.webp","gold":"img/xsculpt-huggie-earrings-gold.webp","silver":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSculpt-Huggie-Earrings-in-Sterling-Silver-01.png?v=1751026360&crop=region&crop_left=474&crop_top=1664&crop_width=1053&crop_height=1053&width=760&height=760"},"shots":["black","gold"],"aud":{"gold":100,"silver":100,"black":100},"usd":{"gold":135,"silver":135,"black":135},"life":"img/xsculpt-huggie-earrings-worn.webp"},{"name":"XSculpt Grande Huggie Earrings","cat":"huggies","worn":"gold","img":{"black":"img/xsculpt-grande-huggie-earrings-black.webp","silver":"img/xsculpt-grande-huggie-earrings-silver.webp","gold":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSculpt-Huggie-Grande-Earrings-in-18k-Gold-02_fa4aaac6-32f9-4541-b482-4f1f087c82e2.png?v=1758189741&crop=region&crop_left=90&crop_top=1060&crop_width=1859&crop_height=1859&width=760&height=760"},"shots":["black","silver"],"aud":{"gold":130,"silver":130,"black":180},"usd":{"gold":180,"silver":180,"black":180},"life":"img/xsculpt-grande-huggie-earrings-worn.webp"},{"name":"XSolid Petite Earrings","cat":"earrings","worn":"silver","img":{"black":"img/xsolid-petite-earrings-black.webp","gold":"img/xsolid-petite-earrings-gold.webp","silver":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSOLID-PETITE-EARRINGS-Silver-Rhodium-sized.png?v=1794452330&crop=region&crop_left=368&crop_top=1421&crop_width=1313&crop_height=1313&width=760&height=760"},"shots":["black","gold"],"aud":{"gold":100,"silver":100,"black":100},"usd":{"gold":120,"silver":120,"black":120},"life":"img/xsolid-petite-earrings-worn.webp"},{"name":"XSolid Earrings","cat":"earrings","worn":"gold","img":{"black":"img/xsolid-earrings-black.webp","silver":"img/xsolid-earrings-silver.webp","gold":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSOLID-EARRINGS-18K-Gold-sized.png?v=1794452714&crop=region&crop_left=7&crop_top=1004&crop_width=1976&crop_height=1976&width=760&height=760"},"shots":["black","silver"],"aud":{"gold":120,"silver":120,"black":120},"usd":{"gold":140,"silver":140,"black":140},"life":"img/xsolid-earrings-worn.webp"},{"name":"XSolid Grande Earrings","cat":"earrings","worn":"black","img":{"silver":"img/xsolid-grande-earrings-silver.webp","gold":"img/xsolid-grande-earrings-gold.webp","black":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSOLID-GRANDE-EARRINGS-in-Black-Rhodium.png?v=1758188094&crop=region&crop_left=233&crop_top=1096&crop_width=1573&crop_height=1573&width=760&height=760"},"shots":["silver","gold"],"aud":{"gold":180,"silver":180,"black":180},"usd":{"gold":240,"silver":240,"black":240},"life":"img/xsolid-grande-earrings-worn.webp"},{"name":"XStyle Grande Earrings","cat":"earrings","worn":"gold","img":{"black":"img/xstyle-grande-earrings-black.webp","silver":"img/xstyle-grande-earrings-silver.webp"},"shots":["black","silver"],"aud":{"gold":200,"silver":95,"black":95},"usd":{"gold":240,"silver":95,"black":95},"life":"img/xstyle-grande-earrings-worn.webp"},{"name":"XStyle Earrings","cat":"earrings","worn":"silver","img":{"black":"img/xstyle-earrings-black.webp","gold":"img/xstyle-earrings-gold.webp"},"shots":["black","gold"],"aud":{"gold":170,"silver":105,"black":105},"usd":{"gold":225,"silver":130,"black":130},"life":"img/xstyle-earrings-worn.webp"},{"name":"XSavage Earrings","cat":"earrings","worn":"gold","img":{"black":"img/xsavage-earrings-black.webp","silver":"img/xsavage-earrings-silver.webp","gold":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SS-XStyleEarrings_Gold.png?v=1772507770&crop=region&crop_left=84&crop_top=1034&crop_width=1872&crop_height=1872&width=760&height=760"},"shots":["black","silver"],"aud":{"gold":180,"silver":180,"black":180},"usd":{"gold":200,"silver":200,"black":129},"life":"img/xsavage-earrings-worn.webp"},{"name":"XSavage Grande Earrings","cat":"earrings","worn":"black","img":{"silver":"img/xsavage-grande-earrings-silver.webp","gold":"img/xsavage-grande-earrings-gold.webp","black":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SS-XStyleGrande_Black.png?v=1772508723&crop=region&crop_left=0&crop_top=900&crop_width=2000&crop_height=2000&width=760&height=760"},"shots":["silver","gold"],"aud":{"gold":220,"silver":220,"black":220},"usd":{"gold":240,"silver":240,"black":240},"life":"img/xsavage-grande-earrings-worn.webp"},{"name":"XSculpt Grande Ring","cat":"rings","worn":"gold","img":{"black":"img/xsculpt-grande-ring-black.webp","silver":"img/xsculpt-grande-ring-silver.webp","gold":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSculpt-Grande-Ring-in-18K-Gold-Vermeil-01.png?v=1751545738&crop=region&crop_left=546&crop_top=1722&crop_width=897&crop_height=897&width=760&height=760"},"shots":["black","silver"],"aud":{"gold":90,"silver":90,"black":90},"usd":{"gold":65,"silver":80,"black":80},"life":"img/xsculpt-grande-ring-worn.webp"},{"name":"XSculpt Ring","cat":"rings","worn":"silver","img":{"black":"img/xsculpt-ring-black.webp","gold":"img/xsculpt-ring-gold.webp","silver":"https://cdn.shopify.com/s/files/1/0836/8458/9859/files/SALLYSKOUFIS-XSculpt-Ring-in-Sterling-Silver-01.png?v=1751545629&crop=region&crop_left=553&crop_top=1746&crop_width=884&crop_height=884&width=760&height=760"},"shots":["black","gold"],"aud":{"gold":80,"silver":80,"black":80},"usd":{"gold":58,"silver":80,"black":80},"life":"img/xsculpt-ring-worn.webp"}];
 const CUR="usd",SYM="US$";
 const CATS=[['all','All'],['cuffs','Ear cuffs'],['huggies','Huggies'],['earrings','Earrings'],['rings','Rings']];
 const CATNAME={cuffs:'Ear cuff',huggies:'Huggie earrings',earrings:'Earrings',rings:'Ring'};
@@ -419,27 +427,38 @@ $('#fins').insertAdjacentHTML('beforeend',FINS.map(f=>`<button class="fin${f===f
 
 // cards
 $('#grid').innerHTML=P.map((p,i)=>`<article class="card" data-i="${i}" tabindex="0" role="button" aria-label="${p.name} — open details">
-  <div class="pic"><span class="tag">Worn · ${FN[p.worn]}</span><img class="shot" alt="${p.name}" loading="lazy"><img class="worn" src="${p.img[p.worn]}" alt="" loading="lazy"></div>
+  <div class="pic"><span class="tag">Worn · ${FN[p.worn]}</span><img class="shot" alt="${p.name}" loading="lazy"><img class="worn" src="${p.life}" alt="" loading="lazy"></div>
   <div class="meta"><div class="nm">${p.name}</div><div class="row"><span class="pr"></span><span class="dots">${FINS.map(f=>`<button data-f="${f}" aria-label="${FN[f]}"><span class="dot d-${f}"></span></button>`).join('')}</span></div></div>
 </article>`).join('');
 
-function paintCard(i){
-  const p=P[i],el=$('#grid').children[i],f=cardFin[i]||fin;
-  const shot=p.img[f]&&f!==p.worn?p.img[f]:p.img[p.shots[0]];
+// every other visible card shows the worn photo, whatever finish is picked, so the grid always mixes model shots and pack shots
+let posOf=[];
+function positions(){let n=0;posOf=P.map((p,i)=>(cat==='all'||p.cat===cat)?n++:-1)}
+function paintAll(){positions();P.forEach((_,i)=>paintCard(i))}
+// neighbours always show opposite sides (model shot / pack shot); every few seconds the whole grid swaps, so each card turns over while its neighbours turn the other way
+let phase=0;
+function paintCard(i,quiet){
+  const p=P[i],el=$('#grid').children[i],f=cardFin[i]||fin,has=!!p.img[f];
+  const worn=!has||(posOf[i]+phase)%2===0;
+  const shot=has?p.img[f]:p.img[p.shots[0]];
   const im=el.querySelector('img.shot');
   if(im.getAttribute('src')!==shot){im.style.opacity=0;setTimeout(()=>{im.src=shot;im.onload=()=>im.style.opacity=1},140)}
-  el.classList.toggle('showworn',f===p.worn);
+  el.classList.toggle('showworn',worn);el.classList.toggle('canflip',has);
+  if(quiet)return;
   const pe=el.querySelector('.pr');pe.classList.add('flip');setTimeout(()=>pe.classList.remove('flip'),180);
   pe.innerHTML=`${money(p[CUR][f])} <span style="color:#8a8a8a;font-size:.74rem">· ${FN[f]}</span>`;
   el.querySelectorAll('.dots button').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
 }
-P.forEach((_,i)=>paintCard(i));
+paintAll();
+let hoverGrid=false;$('#grid').addEventListener('mouseenter',()=>hoverGrid=true);$('#grid').addEventListener('mouseleave',()=>hoverGrid=false);
+setInterval(()=>{if(document.hidden||hoverGrid||$('#ov').classList.contains('open')||$('#mov').classList.contains('open'))return;
+  const r=$('#grid').getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;phase^=1;P.forEach((_,i)=>paintCard(i,true))},4200);
 
 $('#cats').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cat=b.dataset.c;
   document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
-  [...$('#grid').children].forEach((el,i)=>el.classList.toggle('hide',cat!=='all'&&P[i].cat!==cat));wave(true);});
+  [...$('#grid').children].forEach((el,i)=>el.classList.toggle('hide',cat!=='all'&&P[i].cat!==cat));paintAll();wave(true);});
 $('#fins').addEventListener('click',e=>{const b=e.target.closest('.fin');if(!b)return;fin=b.dataset.f;cardFin.fill(null);
-  document.querySelectorAll('.fin').forEach(c=>c.classList.toggle('on',c===b));P.forEach((_,i)=>paintCard(i));});
+  document.querySelectorAll('.fin').forEach(c=>c.classList.toggle('on',c===b));paintAll();});
 $('#grid').addEventListener('click',e=>{const card=e.target.closest('.card');if(!card)return;const i=+card.dataset.i;
   const d=e.target.closest('.dots button');if(d){e.stopPropagation();cardFin[i]=d.dataset.f;paintCard(i);return}
   open(i,cardFin[i]||fin);});
@@ -456,8 +475,8 @@ function open(i,f){cur=i;dfin=f;lastFocus=document.activeElement;paint();$('#ov'
 function close(){$('#ov').classList.remove('open');$('#ov').setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
 function paint(){const p=P[cur];
   $('#dcat').textContent=CATNAME[p.cat];$('#dname').textContent=p.name;
-  const w=$('#dworn');w.src=p.img[p.worn];w.alt=p.name+' worn in '+FN[p.worn];$('#dwt').textContent='Worn · '+FN[p.worn];
-  $('#dshot').innerHTML=dfin===p.worn?`<p class="wnote">${FN[dfin]} is the finish worn in the photo.</p>`:`<img src="${p.img[dfin]}" alt="${p.name} in ${FN[dfin]}">`;
+  const w=$('#dworn');w.src=p.life;w.alt=p.name+' worn in '+FN[p.worn];$('#dwt').textContent='Worn · '+FN[p.worn];
+  $('#dshot').innerHTML=p.img[dfin]?`<img src="${p.img[dfin]}" alt="${p.name} in ${FN[dfin]}">`:`<p class="wnote">${FN[dfin]} is the finish worn in the photo.</p>`;
   $('#dfins').innerHTML=FINS.map(f=>`<button class="${f===dfin?'on':''}" data-f="${f}"><span class="fn"><span class="dot d-${f}"></span>${FN[f]}</span><span class="fp">${money(p[CUR][f])}</span></button>`).join('');
   $('#dpos').textContent=(cur+1)+' / '+P.length;
   [P[(cur+1)%P.length],P[(cur+P.length-1)%P.length]].forEach(q=>Object.values(q.img).forEach(s=>{const im=new Image();im.src=s}));
@@ -474,27 +493,33 @@ $('.box').addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedT
 // Email Jordie pop-up: the message is rebuilt from the fields as they are typed, until the person edits it by hand
 const TO='jordie@sallyskoufis.com',EDN="USD Edition";
 let bodyEdited=false,mailFocus=null;
-function draft(){const v=id=>document.getElementById(id).value.trim();const name=v('fn'),co=v('fc'),mk=v('fm'),st=v('fs');
+function draft(){const v=id=>document.getElementById(id).value.trim();const name=v('fn'),ti=v('ft'),co=v('fc'),em=v('fe'),ph=v('fp'),st=v('fs');
   $('#fsub').value='XS by SALLY SKOUFIS™ partnership enquiry'+(co?' — '+co:'')+' ('+EDN+')';
-  if(!bodyEdited)$('#fbody').value=`Hi Jordie,
+  if(!bodyEdited)$('#fbody').value=`Dear Sally, Jordie and the SALLY SKOUFIS™ Team,
 
-I've been looking through the XS by SALLY SKOUFIS™ Range Book 2026 (${EDN}) and would like to talk about stocking XS.
+Thank you for introducing us to XS by SALLY SKOUFIS™, the house’s exciting new jewellery diffusion line.
 
-Company: ${co||'[company]'}
-Market / channel: ${mk||'[market or channel]'}
-Styles of interest: ${st||'[styles]'}
+Having reviewed the dedicated partner pitch pack and 2026 Range Book, we are interested in exploring a potential commercial partnership and introducing the XS collection to our customers.${st?`
 
-Could you send through wholesale pricing, minimum order quantities, lead times and your marketplace terms?
+We are particularly interested in: ${st}.`:''}
 
-Kind regards,
-${name||'[your name]'}`;
+We would welcome the opportunity to discuss potential wholesale and/or marketplace opportunities, commercial arrangements and launch plans. Please let us know a convenient time to connect and explore how we can bring XS by SALLY SKOUFIS™ to our customers.
+
+We look forward to discussing the potential for a successful partnership.
+
+Kind Regards,
+
+${name||'[Your Name]'}
+${ti||'[Title]'}
+${co||'[Company / Retailer / Marketplace Name]'}
+${em||'[Email]'} | ${ph||'[Phone]'}`;
   link()}
 function link(){$('#msend').href='mailto:'+TO+'?subject='+encodeURIComponent($('#fsub').value)+'&body='+encodeURIComponent($('#fbody').value)}
 function openMail(style){if(style){const f=$('#fs');const cur=f.value.split(',').map(x=>x.trim()).filter(Boolean);if(!cur.includes(style))cur.push(style);f.value=cur.join(', ')}
   mailFocus=document.activeElement;draft();$('#mov').classList.add('open');$('#mov').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>$('#fn').focus(),60)}
 function closeMail(){$('#mov').classList.remove('open');$('#mov').setAttribute('aria-hidden','true');if(!$('#ov').classList.contains('open'))document.body.style.overflow='';if(mailFocus)mailFocus.focus()}
 document.querySelectorAll('[data-mail]').forEach(b=>b.addEventListener('click',()=>openMail()));
-['fn','fc','fm','fs'].forEach(id=>document.getElementById(id).addEventListener('input',draft));
+['fn','ft','fc','fe','fp','fs'].forEach(id=>document.getElementById(id).addEventListener('input',draft));
 $('#fbody').addEventListener('input',()=>{bodyEdited=true;link()});$('#fsub').addEventListener('input',link);
 $('#mx').onclick=closeMail;$('#mov').addEventListener('click',e=>{if(e.target.id==='mov')closeMail()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#mov').classList.contains('open')){e.stopImmediatePropagation();closeMail()}},true);
