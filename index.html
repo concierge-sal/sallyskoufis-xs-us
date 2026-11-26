@@ -611,7 +611,8 @@ const TO='jordie@sallyskoufis.com',EDN="USD Edition";
 let bodyEdited=false,mailFocus=null;
 function draft(){const v=id=>document.getElementById(id).value.trim();const name=v('fn'),ti=v('ft'),co=v('fc'),em=v('fe'),ph=v('fp'),st=v('fs');
   $('#fsub').value='XS by SALLY SKOUFIS™ partnership enquiry'+(co?' — '+co:'')+' ('+EDN+')';
-  if(!bodyEdited)$('#fbody').value=`Dear Sally, Jordie and the SALLY SKOUFIS™ Team,
+  if(bodyEdited){link();return}
+  $('#fbody').value=`Dear Sally, Jordie and the SALLY SKOUFIS™ Team,
 
 Thank you for introducing us to XS by SALLY SKOUFIS™, the house’s exciting new jewellery diffusion line.
 
@@ -630,6 +631,9 @@ ${ti||'[Title]'}
 ${co||'[Company / Retailer / Marketplace Name]'}
 ${em||'[Email]'} | ${ph||'[Phone]'}`;
   link()}
+// fill any [placeholder] still in the message from the boxes, even after the message was edited by hand
+function fillPH(){const v=id=>document.getElementById(id).value.trim(),m={'[Your Name]':v('fn'),'[Title]':v('ft'),'[Company / Retailer / Marketplace Name]':v('fc'),'[Email]':v('fe'),'[Phone]':v('fp')};
+  let b=$('#fbody').value;for(const k in m)if(m[k])b=b.split(k).join(m[k]);if(b!==$('#fbody').value)$('#fbody').value=b}
 function link(){const e=encodeURIComponent,s=e($('#fsub').value),b=e($('#fbody').value),to=e(TO);
   $('#mo-gmail').href='https://mail.google.com/mail/?view=cm&fs=1&to='+to+'&su='+s+'&body='+b;
   $('#mo-live').href='https://outlook.live.com/mail/0/deeplink/compose?to='+to+'&subject='+s+'&body='+b;
@@ -637,7 +641,7 @@ function link(){const e=encodeURIComponent,s=e($('#fsub').value),b=e($('#fbody')
   $('#mo-yahoo').href='https://compose.mail.yahoo.com/?to='+to+'&subject='+s+'&body='+b;
   $('#mo-app').href='mailto:'+TO+'?subject='+s+'&body='+b}
 function pick(open){$('#mpick').classList.toggle('open',open);$('#mpick').setAttribute('aria-hidden',!open);if(open)setTimeout(()=>$('#mo-gmail').focus(),60);else if(open===false&&document.activeElement&&$('#mpick').contains(document.activeElement))$('#msend').focus()}
-$('#msend').onclick=()=>{link();pick(true)};
+$('#msend').onclick=()=>{fillPH();link();pick(true)};
 $('#px').onclick=()=>pick(false);$('#mpick').addEventListener('click',e=>{if(e.target.id==='mpick')pick(false)});
 document.querySelectorAll('.mopts a').forEach(a=>a.addEventListener('click',()=>{$('#mnote').textContent='Opened '+a.querySelector('b').textContent+'. If nothing opened, press Send email again and choose another option, or use Copy email.';setTimeout(()=>pick(false),250)}));
 $('#mo-copy').onclick=()=>{$('#mcopy').click();$('#mo-copy').querySelector('b').textContent='Copied';setTimeout(()=>{$('#mo-copy').querySelector('b').textContent='Copy email';pick(false)},1200)};
@@ -646,11 +650,12 @@ function openMail(style){if(style){const f=$('#fs');const cur=f.value.split(',')
 function closeMail(){pick(false);$('#mov').classList.remove('open');$('#mov').setAttribute('aria-hidden','true');if(!$('#ov').classList.contains('open'))document.body.style.overflow='';if(mailFocus)mailFocus.focus()}
 document.querySelectorAll('[data-mail]').forEach(b=>b.addEventListener('click',()=>openMail()));
 ['fn','ft','fc','fe','fp','fs'].forEach(id=>document.getElementById(id).addEventListener('input',draft));
+['fn','ft','fc','fe','fp'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{if(bodyEdited){fillPH();link()}}));
 $('#fbody').addEventListener('input',()=>{bodyEdited=true;link()});$('#fsub').addEventListener('input',link);
 $('#mx').onclick=closeMail;$('#mov').addEventListener('click',e=>{if(e.target.id==='mov')closeMail()});
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('#mpick').classList.contains('open')){e.stopImmediatePropagation();pick(false)}else if($('#mov').classList.contains('open')){e.stopImmediatePropagation();closeMail()}},true);
 $('#denq').onclick=()=>openMail(P[cur].name);
-$('#mcopy').onclick=async()=>{const t='To: '+TO+'\nSubject: '+$('#fsub').value+'\n\n'+$('#fbody').value;
+$('#mcopy').onclick=async()=>{fillPH();link();const t='To: '+TO+'\nSubject: '+$('#fsub').value+'\n\n'+$('#fbody').value;
   try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove()}
   $('#mcopy').textContent='Copied';$('#mnote').textContent='Copied. Paste it into any email to '+TO+'.';setTimeout(()=>$('#mcopy').textContent='Copy email',2200)};
 
