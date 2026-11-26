@@ -189,6 +189,35 @@ a{color:inherit}
 .tbl td.nm{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
 .fins .fp{font-size:1.15rem}
 .foot .mail{font-size:clamp(1.1rem,2vw,1.5rem);letter-spacing:.06em}
+/* Email Jordie: header button, pop-up with a pre-filled email (26 Nov 2026) */
+.cta{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;padding:.5rem .9rem;background:var(--red);color:#fff;border:1px solid var(--red);transition:background .2s}
+.cta:hover{background:var(--deep)}
+.acts{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}.acts .dl{margin-top:0}
+.dl.alt{background:#fff;color:var(--ink);border:1px solid var(--ink)}.dl.alt:hover{background:var(--ink);color:#fff}
+.dl.wht{background:#fff;color:var(--ink);margin-top:1.8rem}.dl.wht:hover{background:var(--red);color:#fff}
+.foot .who{font-size:clamp(1.3rem,2.4vw,1.8rem);letter-spacing:.14em;text-transform:uppercase;margin:1.1rem 0 .3rem}
+.foot .role{opacity:.55;margin-bottom:1rem}
+.foot .cts{display:flex;justify-content:center;gap:1.6rem;flex-wrap:wrap;font-size:.92rem}
+.foot .cts a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}.foot .cts a:hover{border-color:#fff}
+.foot .links{margin-top:1.6rem}
+.enq{margin-top:.9rem;align-self:flex-start;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red);border-bottom:1px solid currentColor;padding-bottom:.15rem}
+.mov{z-index:70}
+.mbox{position:relative;width:min(640px,94vw);max-height:92vh;overflow-y:auto;background:#fff;padding:clamp(1.5rem,3.5vw,2.6rem);transform:translateY(14px);transition:transform .35s}
+.mov.open .mbox{transform:none}
+.mbox .ct{color:var(--red)}
+.mbox h3{font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:1.5rem;margin:.5rem 0 .3rem}
+.msub{font-size:.82rem;color:var(--grey);margin-bottom:1.3rem}.msub a{color:inherit}
+.mf{display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1rem;margin-bottom:.8rem}
+.mbox label{display:flex;flex-direction:column;gap:.3rem}
+.mbox label.full{margin-bottom:.8rem}
+.mbox label span{font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;color:var(--grey)}
+.mbox input,.mbox textarea{font:inherit;font-size:.88rem;border:1px solid var(--line);padding:.6rem .7rem;background:#fff;color:var(--ink);border-radius:0;width:100%}
+.mbox input:focus,.mbox textarea:focus{outline:none;border-color:var(--ink)}
+.mbox input[readonly]{background:var(--soft);color:#555}
+.mbox textarea{resize:vertical;line-height:1.55}
+.macts{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.4rem}.macts .dl{margin-top:0}
+.mnote{font-size:.72rem;color:var(--grey);margin-top:.9rem}
+@media (max-width:560px){.mbox input,.mbox textarea{font-size:16px}.mf{grid-template-columns:1fr}.mov{align-items:flex-end}.mbox{width:100vw}.bar .cta{padding:.45rem .6rem;letter-spacing:.18em}.bar .ed{display:none}}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .8s,transform .8s}
 .rv.in{opacity:1;transform:none}
 </style>
@@ -202,6 +231,7 @@ a{color:inherit}
     <a class="hm" href="#prices">Price list</a>
     <a class="hm" href="#contact">Partnerships</a>
     <span class="ed">USD Edition</span>
+    <button class="cta" data-mail>Email Jordie</button>
   </nav>
 </header>
 
@@ -264,17 +294,40 @@ a{color:inherit}
       <tbody></tbody>
     </table>
     <p class="note">Indicative RRP in US dollars. Pricing subject to change.</p>
-    <a class="dl" href="XS_by_SALLY_SKOUFIS_Range_Book_2026_USD.pdf" download>Download the range book (PDF) <span aria-hidden="true">↓</span></a>
+    <div class="acts"><a class="dl" href="XS_by_SALLY_SKOUFIS_Range_Book_2026_USD.pdf" download>Download the range book (PDF) <span aria-hidden="true">↓</span></a><button class="dl alt" data-mail>Email Jordie <span aria-hidden="true">→</span></button></div>
   </div>
 </section>
 
 <footer class="foot" id="contact">
   <img class="xs" src="img/xs-logo-w.webp" alt="XS by SALLY SKOUFIS™">
   <div class="k">Wholesale &amp; marketplace partnerships</div>
-  <a class="mail" href="mailto:partnerships@sallyskoufis.com?subject=XS%20partnership%20%E2%80%94%20USD%20edition">partnerships@sallyskoufis.com</a>
+  <div class="who">Jordie Smith</div>
+  <div class="k role">Head of Global Markets</div>
+  <div class="cts"><a href="mailto:jordie@sallyskoufis.com">jordie@sallyskoufis.com</a><a href="tel:+61408347700">+61 408 347 700</a></div>
+  <button class="dl wht" data-mail>Email Jordie <span aria-hidden="true">→</span></button>
   <div class="links"><a href="https://sallyskoufis.com" target="_blank" rel="noopener">sallyskoufis.com</a> · <a href="https://instagram.com/sallyskoufis" target="_blank" rel="noopener">instagram.com/sallyskoufis</a></div>
   <p class="fine">Indicative RRP in US dollars. Pricing subject to change. © 2026 SALLY SKOUFIS™</p>
 </footer>
+
+<div class="ov mov" id="mov" aria-hidden="true">
+  <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mt">
+    <button class="x" id="mx" aria-label="Close">×</button>
+    <div class="k ct">Wholesale &amp; marketplace partnerships</div>
+    <h3 id="mt">Email Jordie</h3>
+    <p class="msub">Jordie Smith · Head of Global Markets · <a href="tel:+61408347700">+61 408 347 700</a></p>
+    <div class="mf">
+      <label><span>Your name</span><input id="fn" autocomplete="name"></label>
+      <label><span>Company</span><input id="fc" autocomplete="organization"></label>
+      <label><span>Market / channel</span><input id="fm" placeholder="e.g. United States · marketplace"></label>
+      <label><span>Styles of interest</span><input id="fs" placeholder="e.g. XSculpt Huggie Earrings, XSolid Ear Cuff"></label>
+    </div>
+    <label class="full"><span>To</span><input value="jordie@sallyskoufis.com" readonly></label>
+    <label class="full"><span>Subject</span><input id="fsub"></label>
+    <label class="full"><span>Message</span><textarea id="fbody" rows="9"></textarea></label>
+    <div class="macts"><a class="dl" id="msend" href="#">Open in my email app <span aria-hidden="true">→</span></a><button class="dl alt" id="mcopy">Copy email</button></div>
+    <p class="mnote" id="mnote">Opens a new email to Jordie with this message ready to send. You can edit it first.</p>
+  </div>
+</div>
 
 <div class="ov" id="ov" aria-hidden="true">
   <div class="box" role="dialog" aria-modal="true" aria-labelledby="dname">
@@ -286,6 +339,7 @@ a{color:inherit}
       <div class="shot" id="dshot"></div>
       <div class="fins" id="dfins"></div>
       <div class="rr">Indicative RRP (USD) · Subject to change</div>
+      <button class="enq" id="denq">Enquire about this piece →</button>
       <div class="nav"><button id="dprev">← Previous</button><span id="dpos"></span><button id="dnext">Next →</button></div>
     </div>
   </div>
@@ -357,6 +411,38 @@ $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')close()});
 document.addEventListener('keydown',e=>{if(!$('#ov').classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
 let tx=null;$('.box').addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 $('.box').addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)step(dx<0?1:-1);tx=null});
+
+// Email Jordie pop-up: the message is rebuilt from the fields as they are typed, until the person edits it by hand
+const TO='jordie@sallyskoufis.com',EDN="USD Edition";
+let bodyEdited=false,mailFocus=null;
+function draft(){const v=id=>document.getElementById(id).value.trim();const name=v('fn'),co=v('fc'),mk=v('fm'),st=v('fs');
+  $('#fsub').value='XS by SALLY SKOUFIS™ partnership enquiry'+(co?' — '+co:'')+' ('+EDN+')';
+  if(!bodyEdited)$('#fbody').value=`Hi Jordie,
+
+I've been looking through the XS by SALLY SKOUFIS™ Range Book 2026 (${EDN}) and would like to talk about stocking XS.
+
+Company: ${co||'[company]'}
+Market / channel: ${mk||'[market or channel]'}
+Styles of interest: ${st||'[styles]'}
+
+Could you send through wholesale pricing, minimum order quantities, lead times and your marketplace terms?
+
+Kind regards,
+${name||'[your name]'}`;
+  link()}
+function link(){$('#msend').href='mailto:'+TO+'?subject='+encodeURIComponent($('#fsub').value)+'&body='+encodeURIComponent($('#fbody').value)}
+function openMail(style){if(style){const f=$('#fs');const cur=f.value.split(',').map(x=>x.trim()).filter(Boolean);if(!cur.includes(style))cur.push(style);f.value=cur.join(', ')}
+  mailFocus=document.activeElement;draft();$('#mov').classList.add('open');$('#mov').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>$('#fn').focus(),60)}
+function closeMail(){$('#mov').classList.remove('open');$('#mov').setAttribute('aria-hidden','true');if(!$('#ov').classList.contains('open'))document.body.style.overflow='';if(mailFocus)mailFocus.focus()}
+document.querySelectorAll('[data-mail]').forEach(b=>b.addEventListener('click',()=>openMail()));
+['fn','fc','fm','fs'].forEach(id=>document.getElementById(id).addEventListener('input',draft));
+$('#fbody').addEventListener('input',()=>{bodyEdited=true;link()});$('#fsub').addEventListener('input',link);
+$('#mx').onclick=closeMail;$('#mov').addEventListener('click',e=>{if(e.target.id==='mov')closeMail()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#mov').classList.contains('open')){e.stopImmediatePropagation();closeMail()}},true);
+$('#denq').onclick=()=>openMail(P[cur].name);
+$('#mcopy').onclick=async()=>{const t='To: '+TO+'\nSubject: '+$('#fsub').value+'\n\n'+$('#fbody').value;
+  try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove()}
+  $('#mcopy').textContent='Copied';$('#mnote').textContent='Copied. Paste it into any email to '+TO+'.';setTimeout(()=>$('#mcopy').textContent='Copy email',2200)};
 
 // bar + reveal
 const bar=$('#bar');const onS=()=>bar.classList.toggle('solid',scrollY>innerHeight*.82);addEventListener('scroll',onS,{passive:true});onS();
