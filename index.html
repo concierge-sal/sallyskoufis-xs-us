@@ -337,6 +337,54 @@ button.dl{border:0;cursor:pointer;font-family:inherit}button.dl.alt{border:1px s
 .toast{position:fixed;left:50%;bottom:1.4rem;z-index:90;transform:translate(-50%,20px);background:var(--ink);color:#fff;font-size:.74rem;padding:.7rem 1.1rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .35s;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 @media (max-width:560px){.sov,.xov{align-items:flex-end}.sbox,.xbox{width:100vw}.selfab span{display:none}.selfab{padding:.8rem .9rem}.nudge{bottom:5rem}.toast{bottom:5.4rem}}
+
+/* founder */
+.founder{padding:clamp(4.5rem,9vw,8rem) 0 clamp(3.5rem,7vw,6rem);background:var(--soft);overflow:hidden}
+.fgrid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2.5rem,6vw,6rem);align-items:center}
+.fpics{position:relative;padding:0 12% 14% 0}
+.fpics figure{margin:0;overflow:hidden}.fpics img,.fstrip img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.fpics .f1{aspect-ratio:4/5}.fpics .f2{position:absolute;right:0;bottom:0;width:46%;aspect-ratio:4/5;border:10px solid var(--soft);box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.fpics figure:hover img,.fstrip figure:hover img{transform:scale(1.04)}
+.founder figcaption{position:absolute;left:.8rem;bottom:.7rem;font-size:.55rem;letter-spacing:.24em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.fstrip figure{position:relative}
+.ftxt .k{color:var(--red)}
+.ftxt h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,4.2vw,3.5rem);line-height:1.02;margin:.7rem 0 1.4rem;text-transform:uppercase;letter-spacing:.06em}
+.ftxt h2 em{display:block;font-family:var(--ital);font-style:italic;text-transform:none;letter-spacing:0;color:var(--red);font-size:.72em;margin-top:.25rem}
+.ftxt p{color:#3b3b3b;max-width:520px;margin:0 0 1rem}.ftxt .lede{font-size:1.05rem;color:var(--ink)}
+.ftxt blockquote{margin:1.8rem 0;padding:1.3rem 0 1.3rem 1.4rem;border-left:2px solid var(--red);font-family:var(--ital);font-style:italic;font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.35;max-width:520px}
+.ftxt cite{display:block;margin-top:.8rem;font-family:var(--sans);font-style:normal;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--grey)}
+.ftxt blockquote img{display:none}
+.fstats{list-style:none;padding:0;margin:0 0 1.8rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;border-top:1px solid var(--line);padding-top:1.2rem;max-width:560px}
+.fstats b{display:block;font-family:var(--serif);font-weight:400;font-size:1.05rem;color:var(--red)}.fstats span{font-size:.74rem;color:var(--grey);line-height:1.4;display:block}
+.flink{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:.2rem}.flink:hover{color:var(--red)}
+.fstrip{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2vw,1.6rem);margin-top:clamp(2.5rem,5vw,4.5rem)}
+.fstrip figure{margin:0;overflow:hidden;aspect-ratio:16/10}.fstrip figure:last-child img{object-position:50% 28%}
+@media (max-width:860px){.fgrid{grid-template-columns:1fr}.fstats{grid-template-columns:1fr 1fr 1fr}.fstrip{grid-template-columns:1fr}.fstrip figure{aspect-ratio:4/3}}
+@media (max-width:480px){.fstats{grid-template-columns:1fr}}
+/* footer */
+.foot{background:#0b0b0b;color:#fff;text-align:left;padding:0 0 1.6rem}
+.foot .press{text-align:center;padding:clamp(32px,3.2vw,52px) 0 clamp(12px,1.4vw,24px);border-bottom:1px solid rgba(255,255,255,.12);overflow:hidden}
+.foot .ph{margin:0;font-family:var(--sans);font-weight:400;text-transform:uppercase;letter-spacing:.18em;font-size:clamp(14px,1.1vw,18px);color:#f3efe9}
+.pmq{overflow:hidden;width:100%}
+.ptrack{display:flex;width:max-content;align-items:center;animation:pmq 45s linear infinite}
+.pdup{display:flex;align-items:center}
+.foot .press:hover .ptrack{animation-play-state:paused}
+.plogo{display:block;flex:0 0 auto;width:clamp(140px,14.4vw,240px);aspect-ratio:18/14;margin:0 clamp(16px,2.35vw,39px)}
+.plogo img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
+@keyframes pmq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ptrack{animation:none;width:auto;flex-wrap:wrap;justify-content:center;row-gap:24px}.pdup{display:none}}
+.fcols{max-width:1200px;margin:0 auto;padding:clamp(3rem,6vw,4.5rem) 4vw;display:grid;grid-template-columns:1.4fr 1.2fr 1fr .8fr;gap:2.5rem}
+.fc{display:flex;flex-direction:column;gap:.55rem;align-items:flex-start}
+.fc .k{opacity:.55;margin-bottom:.6rem;font-size:.58rem}
+.fc a{color:#fff;text-decoration:none;font-size:.88rem;opacity:.85;border-bottom:1px solid transparent;transition:opacity .2s,border-color .2s}.fc a:hover{opacity:1;border-color:rgba(255,255,255,.5)}
+.fc .who{font-family:var(--serif);font-size:1.4rem;letter-spacing:.12em;text-transform:uppercase;font-weight:300}
+.fc .role{font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;opacity:.7;margin-bottom:.4rem}
+.fc .dl{margin-top:.9rem}
+.fc.brand .xs{width:min(190px,48vw);margin:0 0 1.2rem}.fc.brand p{font-size:.82rem;opacity:.65;max-width:280px;line-height:1.6;margin:0}
+.fbot{max-width:1200px;margin:0 auto;padding:1.4rem 4vw 0;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.fbot .fine{margin:0;font-size:.66rem;opacity:.55}.fbot .top{color:#fff;opacity:.6;text-decoration:none;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase}.fbot .top:hover{opacity:1}
+@media (max-width:900px){.fcols{grid-template-columns:1fr 1fr}.fc.brand{grid-column:1/-1}}
+@media (max-width:520px){.fcols{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -347,6 +395,7 @@ button.dl{border:0;cursor:pointer;font-family:inherit}button.dl.alt{border:1px s
   <nav>
     <a class="hm" href="#range">The range</a>
     <a class="hm" href="#prices">Price list</a>
+    <a class="hm" href="#founder">The founder</a>
     <a class="hm" href="#contact">Partnerships</a>
     <span class="ed">USD Edition</span>
     <button class="cta" data-mail>Email Jordie</button>
@@ -416,15 +465,67 @@ button.dl{border:0;cursor:pointer;font-family:inherit}button.dl.alt{border:1px s
   </div>
 </section>
 
+<section class="founder" id="founder">
+  <div class="wrap fgrid">
+    <div class="fpics">
+      <figure class="f1 rv2"><img src="img/founder/sally.webp" alt="Sally Skoufis, founder and designer" loading="lazy"></figure>
+      <figure class="f2 rv2"><img src="img/founder/louboutin.webp" alt="Sally Skoufis with Christian Louboutin" loading="lazy"><figcaption>With Christian Louboutin</figcaption></figure>
+    </div>
+    <div class="ftxt">
+      <div class="k">The founder</div>
+      <h2>Sally Skoufis<em>artist &amp; designer</em></h2>
+      <p class="lede">Founded by artist and jewellery designer Sally Skoufis, the house is driven by a purpose of honour, for the women it is created for and the earth upon which we walk.</p>
+      <p>Sally’s designs are inspired by environmental evolution, not led by trend. Her signature is a single black diamond set into each piece, a mark of time and a provocative symbol of change. XS carries that attitude into the house’s new diffusion line.</p>
+      <blockquote>I’ve always been captivated by the essence and emotion of women and their ability to transform through jewellery that empowers.<cite>Sally Skoufis</cite></blockquote>
+      <ul class="fstats">
+        <li><b>Black diamond</b><span>Signature set into the house’s pieces</span></li>
+        <li><b>Runway</b><span>New York &amp; Paris Fashion Week</span></li>
+        <li><b>Press</b><span>Vogue, ELLE, Harper’s BAZAAR</span></li>
+      </ul>
+      <a class="flink" href="https://sallyskoufis.com/pages/designer-profile" target="_blank" rel="noopener">Read Sally’s story <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div class="wrap fstrip">
+    <figure class="rv2"><img src="img/founder/studio.webp" alt="Sally Skoufis in the studio" loading="lazy"><figcaption>In the studio</figcaption></figure>
+    <figure class="rv2"><img src="img/founder/louboutin-ring.webp" alt="Sally Skoufis with Christian Louboutin and SALLY SKOUFIS™ jewellery" loading="lazy"><figcaption>Sharing the craft</figcaption></figure>
+  </div>
+</section>
+
 <footer class="foot rv2" id="contact">
-  <img class="xs" src="img/xs-logo-w.webp" alt="XS by SALLY SKOUFIS™">
-  <div class="k">Wholesale &amp; marketplace partnerships</div>
-  <div class="who">Jordie Smith</div>
-  <div class="k role">Head of Global Markets</div>
-  <div class="cts"><a href="mailto:jordie@sallyskoufis.com">jordie@sallyskoufis.com</a><a href="tel:+61408347700">+61 408 347 700</a></div>
-  <button class="dl wht" data-mail>Email Jordie <span aria-hidden="true">→</span></button>
-  <div class="links"><a href="https://sallyskoufis.com" target="_blank" rel="noopener">sallyskoufis.com</a> · <a href="https://instagram.com/sallyskoufis" target="_blank" rel="noopener">instagram.com/sallyskoufis</a></div>
-  <p class="fine">Indicative RRP in US dollars. Pricing subject to change. © 2026 SALLY SKOUFIS™</p>
+  <div class="press">
+    <h2 class="ph">As featured in</h2>
+    <div class="pmq" role="list" aria-label="As featured in"><div class="ptrack"><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Elle.png?width=480" decoding="async" alt="ELLE"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Harper_s_Bazaar.png?width=480" decoding="async" alt="Harper’s BAZAAR"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Marie_Claire.png?width=480" decoding="async" alt="marie claire"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_NYFW.png?width=480" decoding="async" alt="New York Fashion Week"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Vogue.png?width=480" decoding="async" alt="Vogue"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Allure.png?width=480" decoding="async" alt="Allure"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_GQ.png?width=480" decoding="async" alt="GQ"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Cosmopolitan.png?width=480" decoding="async" alt="Cosmopolitan"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Vanity_Fair.png?width=480" decoding="async" alt="Vanity Fair"></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_PFW.png?width=480" decoding="async" alt="Paris Fashion Week"></span><span class="pdup" aria-hidden="true"><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Elle.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Harper_s_Bazaar.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Marie_Claire.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_NYFW.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Vogue.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Allure.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_GQ.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Cosmopolitan.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_Vanity_Fair.png?width=480" decoding="async" alt=""></span><span class="plogo"><img src="https://sallyskoufis.com/cdn/shop/files/SALLY_SKOUFIS_Logo_PFW.png?width=480" decoding="async" alt=""></span></span></div></div>
+  </div>
+  <div class="fcols">
+    <div class="fc brand">
+      <img class="xs" src="img/xs-logo-w.webp" alt="XS by SALLY SKOUFIS™">
+      <p>The new diffusion line from the house of SALLY SKOUFIS™. Handmade jewellery with attitude.</p>
+    </div>
+    <div class="fc">
+      <div class="k">Wholesale &amp; marketplace partnerships</div>
+      <div class="who">Jordie Smith</div>
+      <div class="role">Head of Global Markets</div>
+      <a href="mailto:jordie@sallyskoufis.com">jordie@sallyskoufis.com</a>
+      <a href="tel:+61408347700">+61 408 347 700</a>
+      <button class="dl wht" data-mail>Email Jordie <span aria-hidden="true">→</span></button>
+    </div>
+    <div class="fc">
+      <div class="k">The house</div>
+      <a href="https://sallyskoufis.com" target="_blank" rel="noopener">sallyskoufis.com</a>
+      <a href="https://sallyskoufis.com/pages/designer-profile" target="_blank" rel="noopener">Designer profile</a>
+      <a href="https://sallyskoufis.com/pages/design-philosophy" target="_blank" rel="noopener">Design philosophy</a>
+      <a href="https://sallyskoufis.com/collections/women" target="_blank" rel="noopener">Shop the collection</a>
+      <a href="XS_by_SALLY_SKOUFIS_Range_Book_2026_USD.pdf" download>Range book (PDF)</a>
+    </div>
+    <div class="fc">
+      <div class="k">Follow</div>
+      <a href="https://www.instagram.com/sallyskoufis" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/sallyskoufisjewelry/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://pinterest.com/sallyskoufis/" target="_blank" rel="noopener">Pinterest</a>
+      <a href="https://www.linkedin.com/in/sally-skoufis-72777623/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+  <div class="fbot"><p class="fine">Indicative RRP in US dollars. Pricing subject to change. © 2026 SALLY SKOUFIS™</p><a href="#top" class="top">Back to top <span aria-hidden="true">↑</span></a></div>
 </footer>
 
 <div class="ov mov" id="mov" aria-hidden="true">
